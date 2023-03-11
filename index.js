@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const router = require("./routes/jg-fitness-router");
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -10,6 +11,6 @@ app.use(express.json());
 
 app.use('/', router);
 
-app.listen(3000, console.log("¡Servidor encendido!"));
+app.listen(port, console.log("¡Servidor encendido!"));
 
 module.exports = app
