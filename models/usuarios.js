@@ -29,9 +29,16 @@ const obtenerUsuario = async (email) => {
     return usuarios[0];
 }
 
+const vincularUsuarioEntrenadorServicio = async (usuario_id, entrenadorservicio_id) => {
+    const consulta = "UPDATE usuarios SET entrenadorservicio_id = $1";
+    const values = [entrenadorservicio_id];
+    await db.query(consulta, values);
+}
+
 
 module.exports = {
     crear,
     verificarUsuario,
-    obtenerUsuario
+    obtenerUsuario,
+    vincularUsuarioEntrenadorServicio
 }

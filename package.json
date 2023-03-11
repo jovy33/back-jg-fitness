@@ -4,7 +4,7 @@
   "description": "servidor desafio soft jobs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --forceExit"
   },
   "author": "johana gonzalez",
   "license": "ISC",
@@ -13,6 +13,8 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "pg": "^8.8.0"
+    "pg": "^8.8.0",
+    "jest": "^28.1.3",
+    "supertest": "^6.2.4"
   }
 }

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { crear, verificarUsuario, obtenerUsuario } = require('../models/usuarios');
+const { crear, verificarUsuario, obtenerUsuario, vincularUsuarioEntrenadorServicio } = require('../models/usuarios');
 
 
 const crearUsuario = async (req, res) => {
@@ -34,10 +34,21 @@ const traerUsuario = async (req, res) => {
     }
 }
 
+const asociarUsuarioEntrenadorServicio = async (req, res) => {
+    try {
+        await vincularUsuarioEntrenadorServicio(req.query.usuario_id, req.query.entrenadorservicio_id);
+        res.json();
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
 
 
 module.exports = {
     crearUsuario,
     loginUsuario,
-    traerUsuario
+    traerUsuario,
+    asociarUsuarioEntrenadorServicio
 }
