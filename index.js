@@ -11,6 +11,8 @@ app.use(express.json());
 
 app.use('/', router);
 
+app.options('*', cors());
+
 app.listen(port, console.log("¡Servidor encendido!"));
 
 module.exports = app
