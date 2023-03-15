@@ -30,8 +30,18 @@ const obtenerServicioSegunIdUsuario = async (idUsuario) => {
     return servicios[0];
 }
 
+const obtenerServicioSegunIdServicio = async (idServicio) => {
+    const consulta = `SELECT *
+        FROM servicios
+        WHERE id = $1;`;
+    const values = [idServicio];
+    const { rows: servicios } = await db.query(consulta, values);
+    return servicios[0];
+}
+
 
 module.exports = {
     obtenerServiciosSegunIdEntrenador,
-    obtenerServicioSegunIdUsuario
+    obtenerServicioSegunIdUsuario,
+    obtenerServicioSegunIdServicio
 }

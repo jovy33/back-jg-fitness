@@ -1,4 +1,4 @@
-const { obtenerServiciosSegunIdEntrenador, obtenerServicioSegunIdUsuario } = require('../models/servicios.js');
+const { obtenerServiciosSegunIdEntrenador, obtenerServicioSegunIdUsuario, obtenerServicioSegunIdServicio } = require('../models/servicios.js');
 
 const traerServiciosSegunEntrenador = async (req, res) => {
     try {
@@ -22,7 +22,19 @@ const traerServicioSegunUsuario = async (req, res) => {
     }
 }
 
+const traerServicioSegunIdServicio = async (req, res) => {
+    try {
+        console.log('--> 3');
+        const servicio = await obtenerServicioSegunIdServicio(req.query.servicio_id);
+        res.send(servicio);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
 module.exports = {
     traerServiciosSegunEntrenador,
-    traerServicioSegunUsuario
+    traerServicioSegunUsuario,
+    traerServicioSegunIdServicio
 }

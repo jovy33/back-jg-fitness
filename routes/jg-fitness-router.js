@@ -24,5 +24,7 @@ router.get("/servicios/", reportarConsultaGet, verificarToken, servicioControlle
 
 router.get("/servicio/", reportarConsultaGet, verificarToken, servicioController.traerServicioSegunUsuario);
 
+router.get("/servicio-segun-id-servicio/", reportarConsultaGet, verificarToken, servicioController.traerServicioSegunIdServicio);
+
 
 module.exports = router;
