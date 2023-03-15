@@ -1,7 +1,20 @@
 const { db } = require('../database/connection');
 
 const obtenerServiciosSegunIdEntrenador = async (idEntrenador) => {
-    const consulta = "SELECT * FROM entrenadorservicio AS es INNER JOIN servicios AS s ON (es.servicio_id = s.id) INNER JOIN entrenadores AS en ON (es.entrenador_id = en.id) WHERE entrenador_id = $1";
+    const consulta = `SELECT 
+        es.id,
+        es.entrenador_id AS idEntrenador,
+        es.servicio_id AS idServicio,
+        s.nombre,
+        s.descripcion,
+        s.precio,
+        s.duracion,
+        en.nombre AS nombreEntrenador,
+        en.img
+        FROM entrenadorservicio AS es 
+        INNER JOIN servicios AS s ON (es.servicio_id = s.id)
+        INNER JOIN entrenadores AS en ON (es.entrenador_id = en.id)
+        WHERE entrenador_id = $1`;
     const values = [idEntrenador];
     const { rows: entrenadores } = await db.query(consulta, values);
     return entrenadores;
