@@ -33,8 +33,8 @@ const obtenerUsuario = async (email) => {
 }
 
 const vincularUsuarioEntrenadorServicio = async (usuario_id, entrenadorservicio_id) => {
-    const consulta = "UPDATE usuarios SET entrenadorservicio_id = $1";
-    const values = [entrenadorservicio_id];
+    const consulta = "UPDATE usuarios SET entrenadorservicio_id = $1 WHERE id = $2";
+    const values = [entrenadorservicio_id, usuario_id];
     await db.query(consulta, values);
 }
 
