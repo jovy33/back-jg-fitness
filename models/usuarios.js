@@ -23,7 +23,7 @@ const verificarUsuario = async (email, password) => {
 }
 
 const obtenerUsuario = async (email) => {
-    const consulta = "select * from usuarios where email = $1";
+    const consulta = "select id, nombre, apellido, sexo, email, entrenadorservicio_id from usuarios where email = $1";
     const values = [email];
     const { rows: usuarios } = await db.query(consulta, values);
     return usuarios[0];
