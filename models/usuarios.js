@@ -23,7 +23,10 @@ const verificarUsuario = async (email, password) => {
 }
 
 const obtenerUsuario = async (email) => {
-    const consulta = "select id, nombre, apellido, sexo, email, entrenadorservicio_id from usuarios where email = $1";
+    const consulta = `SELECT u.id, u.nombre, u.apellido, u.sexo, u.email, u.entrenadorservicio_id, s.id AS servicio_id FROM "public"."usuarios" AS u
+                    INNER JOIN entrenadorservicio AS es ON (u.entrenadorservicio_id = es.id)
+                    INNER JOIN servicios AS s ON (es.servicio_id = s.id)
+                    WHERE u.id = $1;`;
     const values = [email];
     const { rows: usuarios } = await db.query(consulta, values);
     return usuarios[0];
