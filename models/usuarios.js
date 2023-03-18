@@ -15,11 +15,12 @@ const verificarUsuario = async (email, password) => {
 
     const { rows: [usuario], rowCount } = await db.query(consulta, values);
 
-    const { clave: claveEncriptada } = usuario;
+    const { clave: claveEncriptada, id } = usuario;
     const claveCorrecta = bcrypt.compareSync(password, claveEncriptada);
 
     if (!claveCorrecta || !rowCount)
         throw { code: 401, message: "Email o contraseña incorrecta" };
+    return id;
 }
 
 const obtenerUsuario = async (email) => {
@@ -33,8 +34,9 @@ const obtenerUsuario = async (email) => {
 }
 
 const vincularUsuarioEntrenadorServicio = async (usuario_id, entrenadorservicio_id) => {
-    const consulta = "UPDATE usuarios SET entrenadorservicio_id = $1 WHERE id = $2";
+    const consulta = `UPDATE "public"."usuarios" SET entrenadorservicio_id = $1 WHERE id = $2;`;
     const values = [entrenadorservicio_id, usuario_id];
+
     await db.query(consulta, values);
 }
 
