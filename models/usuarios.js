@@ -15,12 +15,12 @@ const verificarUsuario = async (email, password) => {
 
     const { rows: [usuario], rowCount } = await db.query(consulta, values);
 
-    const { clave: claveEncriptada, id } = usuario;
+    const { clave: claveEncriptada, id, entrenadorservicio_id } = usuario;
     const claveCorrecta = bcrypt.compareSync(password, claveEncriptada);
 
     if (!claveCorrecta || !rowCount)
         throw { code: 401, message: "Email o contraseña incorrecta" };
-    return id;
+    return { id, entrenadorservicio_id };
 }
 
 const obtenerUsuario = async (email) => {

@@ -16,9 +16,9 @@ const crearUsuario = async (req, res) => {
 const loginUsuario = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const idUsuario = await verificarUsuario(email, password);
+        const { id, entrenadorservicio_id} = await verificarUsuario(email, password);
         const token = jwt.sign({ email }, "az_AZ");
-        res.send({ token, idUsuario });
+        res.send({ token, idUsuario: id, entrenadorservicio_id });
     } catch (error) {
         console.log(error);
         res.status(500).json(error);
