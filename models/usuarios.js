@@ -11,16 +11,18 @@ const crear = async (usuario) => {
 
 const verificarUsuario = async (email, password) => {
     const values = [email];
-    const consulta = "select * from usuarios where email = $1";
+    const consulta = `SELECT u.clave, u.id, u.entrenadorservicio_id, s.id AS servicio_id FROM "public"."usuarios" AS u 
+        LEFT JOIN entrenadorservicio AS es ON (u.entrenadorservicio_id = es.id)
+        LEFT JOIN servicios AS s ON (es.servicio_id = s.id)
+        WHERE u.email = $1`;
 
     const { rows: [usuario], rowCount } = await db.query(consulta, values);
-
-    const { clave: claveEncriptada, id, entrenadorservicio_id } = usuario;
+    const { clave: claveEncriptada, id, entrenadorservicio_id, servicio_id } = usuario;
     const claveCorrecta = bcrypt.compareSync(password, claveEncriptada);
 
     if (!claveCorrecta || !rowCount)
         throw { code: 401, message: "Email o contraseña incorrecta" };
-    return { id, entrenadorservicio_id };
+    return { id, entrenadorservicio_id, servicio_id };
 }
 
 const obtenerUsuario = async (email) => {
